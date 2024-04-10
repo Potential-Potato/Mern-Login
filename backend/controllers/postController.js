@@ -1,6 +1,4 @@
 const Post = require('../models/post')
-const express = require('express')
-const router = express.Router()
 
 const handlePost = async (req, res) => { //how about the user id on cookie?
     try{
@@ -11,10 +9,11 @@ const handlePost = async (req, res) => { //how about the user id on cookie?
 
         const newPost = await Post.create({
             title,
-            body
+            body,
         })
 
         return res.json(newPost)
+
     }catch(error){
         console.log(error)
     } 

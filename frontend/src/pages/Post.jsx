@@ -3,26 +3,30 @@ import { useState } from 'react'
 import axios from 'axios'
 import { toast } from 'react-hot-toast'
 
-const Post = () => {
+function Post() {
     const [post, setPost] = useState({
         title: '',
-        body: ''
+        body: '',
     })
     const handlePost = async(e) => {
         e.preventDefault()
         const {title, body} = post
         try{
-            const {post} = await axios.post('/post', {
+            const response = await axios.post('/post', {
                 title, body
             })
-            if(post.error){
-                toast.error(post.error)
+            if(response.error){
+                toast.error(response.error)
             }else{
-                setPost({})
-                toast.success('Register Successful!')
+                setPost({
+                    title: '',
+                    body: ''
+                })
+                toast.success('Post Successful!')
             }
         }catch(error){
             console.log(error)
+            toast.error('An error occurred while posting.');
         }
 
     }
