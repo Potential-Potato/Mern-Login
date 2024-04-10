@@ -43,7 +43,7 @@ const registerUser = async (req, res) => {
     return res.json(user) //sends user to frontend
     
    }catch (error){
-        console.log(error)
+        
    }
 }
 

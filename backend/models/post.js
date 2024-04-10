@@ -1,9 +1,8 @@
 const mongoose = require('mongoose')
 
 const postSchema = new mongoose.Schema({
-    sessionId: String, 
+    id: String,
     title: String,
-    description: String,
     body: String
 })
 
