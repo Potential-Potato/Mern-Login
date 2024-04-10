@@ -8,6 +8,7 @@ import axios from 'axios'
 import { Toaster } from 'react-hot-toast'
 import { UserContextProvider } from '../context/userContext'
 import Dashboard from './pages/Dashboard'
+import Post from './pages/Post'
 
 axios.defaults.baseURL = 'http://localhost:8000'
 axios.defaults.withCredentials = true
@@ -24,7 +25,7 @@ function App() {
         <Route path='/dashboard' element={<Dashboard/>}></Route>
         <Route path='/register' element={<Register/>}></Route>
         <Route path='/login' element={<Login/>}></Route>
-        <Route path='/logout' element={<Login/>}></Route>
+        <Route path='/post' element={<Post/>}></Route>
       </Routes>
     </UserContextProvider>
   )

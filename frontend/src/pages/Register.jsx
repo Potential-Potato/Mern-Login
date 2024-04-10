@@ -25,12 +25,29 @@ export default function Register() {
       }else{
         setData({})
         toast.success('Register Successful!')
-        navigate('/login')  
+        //logins the user
+        const {...data} = await axios.post('/login', {
+          email,
+          password
+        })
+        window.location.href = '/dashboard'; 
       }
     }catch(error){
      console.log(error)
     } 
-  }
+
+    // Add useEffect hook to reload the page after successful registration
+    useEffect(() => {
+      const handleReload = () => {
+        if (!data.error) {
+          window.location.reload(); // Reload the page after successful registration
+        }
+      };
+
+      handleReload();
+    }, [data.error]);
+    }
+
   return (
     <div>
       <form onSubmit={registerUser}>

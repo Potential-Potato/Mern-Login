@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { toast } from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
@@ -14,21 +14,21 @@ export default function Login() {
     e.preventDefault()
     const {email, password} = data
     try{
-      const {data} = await axios.post('/login', {
-        email,
-        password
+        const {data} = await axios.post('/login', {
+          email,
+          password
       })
       if(data.error){ //shows the json.(error) from the backend
         toast.error(data.error)
       }else{
         setData({})
         toast.success('Login Successful!')
-        navigate('/dashboard')  
+        window.location.href = '/dashboard';
       }
     }catch(error){
       console.log(error)
      } 
-  }
+    }
 
 
   return (

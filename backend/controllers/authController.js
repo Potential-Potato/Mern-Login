@@ -40,7 +40,7 @@ const registerUser = async (req, res) => {
         password: hashedPassword
     })
 
-    return res.json(user)
+    return res.json(user) //sends user to frontend
     
    }catch (error){
         console.log(error)
@@ -67,7 +67,7 @@ const loginUser = async (req, res) => {
             })
         }
         
-        const match = await comparePassword(password, user.password)
+        const match = await comparePassword(password, user.password) //check if password matched
         if(match){
             //token to keep tab on user activity 
             jwt.sign({
@@ -94,22 +94,30 @@ const loginUser = async (req, res) => {
     }
 }
 
-const logoutUser = (req, res) => {
-    res.clearCookie('token').json({ message: 'Logout Successful'})
-}
-
 const getProfile = (req, res) => {
-    const {token} = req.cookies
-    if(token){
-        jwt.verify(token, process.env.JWT_SECRET, {},
-        (err, user) => {
-            if(err) throw err
-            res.json(user)
-        }
-        )
-    }else{
-        res.json(null)
+    const { token } = req.cookies;
+    if (token) {
+        jwt.verify(token, process.env.JWT_SECRET, {}, (err, decodedToken) => {
+            if (err) {
+                throw err;
+            } else {
+                // Include the decoded token in the response
+                const user = {
+                    ...decodedToken,
+                    token: token // Add the token to the user object
+                };
+                res.json(user); // Sends user to frontend
+            }
+        });
+    } else {
+        res.json(null);
     }
+};
+
+
+const handleLogout = (req, res) => {
+    res.clearCookie('token')
+    res.redirect('/')
 }
 
 module.exports = {
@@ -117,5 +125,5 @@ module.exports = {
     registerUser,
     loginUser,
     getProfile,
-    logoutUser
+    handleLogout
 }

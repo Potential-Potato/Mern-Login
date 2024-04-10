@@ -1,21 +1,30 @@
-import axios from 'axios'
-import { createContext, useState, useEffect } from 'react'
+import axios from 'axios';
+import { createContext, useState, useEffect } from 'react';
 
-export const UserContext = createContext({})
+// Create a new context for user data
+export const UserContext = createContext({});
 
-export function UserContextProvider({children}){
-    const [user, setUser] = useState(null)
+// UserContextProvider component
+export function UserContextProvider({children}) {
+    // State to hold the user data
+    const [user, setUser] = useState(null);
+
+    // useEffect hook to fetch user data when the component mounts
     useEffect(() => {
-        if(!user){
+        // Check if user data is not already available
+        if (!user) {
+            // Fetch user data from the server
             axios.get('/profile').then(({data}) => {
-                setUser(data)
-            })
+                // Update the user state with fetched data
+                setUser(data);
+            });
         }
-    }, [])
+    }, []); // Empty dependency array ensures this effect runs only once when the component mounts
 
+    // Render the UserContext.Provider, providing the user state and setUser function as context value
     return (
-        <UserContext.Provider value={{user, setUser}}>
-            {children}
+        <UserContext.Provider value={{ user, setUser }}>
+            {children} {/* Render children components */}
         </UserContext.Provider>
-    )
+    );
 }
