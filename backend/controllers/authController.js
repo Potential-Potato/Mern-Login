@@ -95,23 +95,25 @@ const loginUser = async (req, res) => {
 }
 
 const getProfile = (req, res) => {
-    const { token } = req.cookies;
-    if (token) {
-        jwt.verify(token, process.env.JWT_SECRET, {}, (err, decodedToken) => {
-            if (err) {
-                throw err;
-            } else {
-                // Include the decoded token in the response
-                const user = {
-                    ...decodedToken,
-                    token: token // Add the token to the user object
-                };
-                res.json(user); // Sends user to frontend
-            }
-        });
-    } else {
-        res.json(null);
-    }
+    // console.log(req.user)
+    res.json(req.user)
+    // const { token } = req.cookies;
+    // if (token) {
+    //     jwt.verify(token, process.env.JWT_SECRET, {}, (err, decodedToken) => {
+    //         if (err) {
+    //             throw err;
+    //         } else {
+    //             // Include the decoded token in the response
+    //             const user = {
+    //                 ...decodedToken,
+    //                 token: token // Add the token to the user object
+    //             };
+    //             res.json(user); // Sends user to frontend
+    //         }
+    //     });
+    // } else {
+    //     res.json(null);
+    // }
 };
 
 
