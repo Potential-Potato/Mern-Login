@@ -2,16 +2,6 @@ const Post = require('../models/post')
 
 const handlePost = async (req, res) => { //how about the user id on cookie?
     try{
-        // console.log(req.user)  // req.user holds information aboout the object 
-        /* 
-            In this format
-            {
-                email: user.email,
-                id: user._id,
-                name: user.name
-            }
-        */
-        
         const {title, body} = req.body
         if(!title || !body){
             return res.json({error: 'All field is required to post'})
@@ -20,7 +10,8 @@ const handlePost = async (req, res) => { //how about the user id on cookie?
         const newPost = await Post.create({
             title,
             body,
-            createdby : req.user.id
+            createdby : req.user.id,
+            name: req.user.name
         })
 
         return res.json(newPost)
@@ -30,4 +21,17 @@ const handlePost = async (req, res) => { //how about the user id on cookie?
     } 
 }
 
-module.exports = handlePost
+const getPost = async (req, res) => {
+    try {
+        const posts = await Post.find({});
+        res.json(posts);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
+
+module.exports = {
+    handlePost,
+    getPost
+}
