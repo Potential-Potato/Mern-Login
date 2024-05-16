@@ -1,0 +1,14 @@
+.nav-bar{
+    display: flex;
+    flex: 1;
+    justify-content: space-evenly; /* evenly distribute space between flex items */
+    width: 100%;
+    position: fixed;
+    top: 0.5rem;
+    left: 0;
+}
+
+.nav-bar a{
+    display: flex;
+
+}

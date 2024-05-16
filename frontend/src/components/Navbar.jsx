@@ -3,11 +3,13 @@ import { Link } from 'react-router-dom';
 import { UserContext } from '../../context/userContext';
 import HandleLogout from './HandleLogout'
 
+import '../assets/nav-bar.css'
+
 export default function Navbar() {
   const { user } = useContext(UserContext); // Access user context to check authentication status
 
   return (
-    <nav>
+    <nav className='nav-bar'>
       <Link to={'/'}>Home</Link> 
       {/* Conditionally render the "Dashboard" link if the user is logged in */}
       {user ? (

@@ -1,0 +1,6 @@
+.post-item{
+    display: flex;
+    flex-direction: row;
+    color: blue;
+    border: 2px red dashed;
+}

@@ -8,11 +8,14 @@ const HandleLogout = () => {
             window.location.href = '/login'; // Redirect after successful logout
         } catch (error) {
             console.error('Logout failed:', error);
+            // window.location.href = '/login';
         }
     };
 
     return (
-        <button onClick={handleLogout}>LogOut</button>
+        <a href="/logout" onClick={handleLogout}>
+        LogOut
+        </a>
     );
 }
 

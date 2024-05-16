@@ -47,6 +47,18 @@ function Post() {
         }
     };
 
+    const handleDeletePost = async(postId) => {
+        try {
+            const response = await axios.delete(`/post/${postId}`);
+            toast.success(response.data.message);
+            fetchPosts(); // Fetch posts again to update the list after deleting
+        } catch (error) {
+            console.error(error);
+            toast.error('An error occurred while deleting the post.');
+        }
+    }
+
+
     return (
         <div>
             <h1>Post Something!</h1>
@@ -69,6 +81,10 @@ function Post() {
                             <h3>{post.title}</h3>
                             <p>{post.body}</p>
                             <p>Created by: {post.name}</p>
+                            <button onClick={() => {
+                                handleDeletePost(post._id)
+                            }}>Delete</button>
+
                         </div>
                     </div>
                 ))}

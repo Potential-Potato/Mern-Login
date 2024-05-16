@@ -1,0 +1,10 @@
+body{
+    display: flex;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    justify-content: center;
+    top: 20%;
+    left: 40%;
+    color: red;
+}
