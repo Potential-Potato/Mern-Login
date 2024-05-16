@@ -31,7 +31,23 @@ const getPost = async (req, res) => {
     }
 };
 
+const deletePost = async (req, res) => {
+    try{
+        const postId = req.params.id;
+        const deletedPost = await Post.findByIdAndDelete(postId)
+        if(!deletedPost){
+            return res.status(404).json({ error: 'Post not found' });
+        }
+        res.json({ message: 'Post deleted successfully' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+        console.log(error)
+    }
+}
+
 module.exports = {
     handlePost,
-    getPost
+    getPost,
+    deletePost
 }
